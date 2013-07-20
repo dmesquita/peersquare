@@ -1,0 +1,13 @@
+{
+ "name": "peersquare",
+ "description": "Veja eventos realizados das praças e parques da cidade do Recife",
+ "launch_path": "/index.html",
+ "icons": {
+    "128": "image/icon.png"
+    },
+ "developer": {
+    "name": "Deborah Mesquita",
+    "url": "http://www.deborahmesquita.com/"
+    },
+ "default_locate": "en"
+}
