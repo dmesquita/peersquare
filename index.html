@@ -11,15 +11,17 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMuLgrK8a_Qb5tTA4V_Ks0bWC-D-1tGs4&sensor=false">
     </script>
 	<script type="text/javascript" src="js/gmap3.min.js"></script>
+	<script type="text/javascript" src="js/apigee.js"></script>
 	<script type="text/javascript">
 		function initialize() {
 	        var mapOptions = {
 	          center: new google.maps.LatLng(-8.039069038371139, -34.87630514343946),
-	          zoom: 10
+	          zoom: 13
 	        };
 	        var map = new google.maps.Map(document.getElementById("my_map"), mapOptions);
 
-	        $.getJSON( 'data/parquespracas.geojson', function(data) { 
+	        //$.getJSON( 'data/parquespracas.geojson', function(data) { 
+	       	$.getJSON( 'data/umapraca.geojson', function(data) { 
 				$.each( data.features, function(i, feature) {					
 					var pracaCoords = [];
 					//As coordenadas do  poligono de UMA praca
@@ -27,32 +29,99 @@
 					for(var i = 0; i < array.length; i++){					
 						pracaCoords.push(new google.maps.LatLng(array[i][1], array[i][0]));
 					}
+					//alert(hasEvents(feature.id) );
+					
+					var cor;
+					
+					if(hasEvents(feature.id) == true){
+					    	cor = '#0000FF';					    	
+					}else{
+					    	cor = '#FF0000';
+					};
+
 					praca = new google.maps.Polygon({
 					    paths: pracaCoords,
-					    strokeColor: '#FF0000',
+					    strokeColor: cor,
 					    strokeOpacity: 0.8,
 					    strokeWeight: 2,
-					    fillColor: '#FF0000',
-					    fillOpacity: 0.35
+					    fillOpacity: 0.35,
+					    fillColor: cor					   				  
 				  	});
+
+				  	google.maps.event.addListener(praca, 'click', function (event) {
+				  		var id = feature.id;
+				  		var nome = feature.properties.NMNOME;
+					  	show_praca(id,nome);					  
+					}); 
 
 				  	praca.setMap(map);
 					
 				});
 			});
-      	}
-      	google.maps.event.addDomListener(window, 'load', initialize);console.log("oi");
+      	};
+      	google.maps.event.addDomListener(window, 'load', initialize);
 
 		$(document).ready(function(){
 			$('#my_map').height($(window).height() - (10 + $('[data-role=header]').height() - $('[data-role=footer]').height()));
-			$('#my_map').width($(window).width());
+			$('#my_map').width($(window).width());			
 		});
+
+		// Apigee 
+		var client = new Apigee.Client({
+                orgName:'dehmesquita',
+                appName:'sandbox'
+            });  
+
+        function hasEvents(id){
+        	var options = {
+                type:'eventos',
+                qs:{'ql':"select * where id_praca="+id}
+            }           
+
+            client.createCollection(options, function (err, eventos) {            	
+                if (err) {
+                    alert("Couldn't get the list of events.");                   
+                } else { 
+                	if (eventos.hasNextEntity()){
+                    	return true;
+                    }else{
+                    	return false;
+                    };                   
+                };               
+            });            
+        }; 
+
+		function show_praca(id, nome){			
+			$("#nome_praca").html(nome);
+			
+			var options = {
+                type:'eventos',
+                qs:{'ql':"select * where id_praca="+id}
+            }
+
+            var eventos;
+
+            client.createCollection(options, function (err, eventos) {            	
+                if (err) {
+                    alert("Couldn't get the list of books.");
+                } else {                	
+                    while(eventos.hasNextEntity()) {
+                        var evento = eventos.getNextEntity();                       
+                        $("#nome").html("<h4>"+evento.get("evento")+"</h4><p>"+evento.get("data_evento")+"</p>");
+                    }
+                }
+            });
+
+			window.location = "#two";
+		};
+
+		       
 
 	</script>
 </head> 
 <body> 
 
-<div data-role="page">
+<div data-role="page" id="one">
 
 	<div data-role="panel" id="sidepanel">
         <!-- panel content goes here -->
@@ -70,6 +139,28 @@
 		<p>Hello world</p>	
 		<a href="#sidepanel">Open panel</a>	
 		<div id="my_map"></div>
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+<div data-role="page" id="two">
+
+	<div data-role="panel" id="sidepanel2">
+        <!-- panel content goes here -->
+        <ul data-role="listview">
+			<li></li>
+			<li><a href="audi.html">Lista de pra&#231;as</a></li>			
+		</ul>
+    </div>
+
+	<div data-role="header">
+		<h1 id="nome_praca"></h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<ul data-role="listview">
+			<li id="nome"></li>				
+		</ul>
 	</div><!-- /content -->
 
 </div><!-- /page -->
