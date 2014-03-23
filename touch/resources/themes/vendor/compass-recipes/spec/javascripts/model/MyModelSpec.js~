@@ -1,0 +1,6 @@
+describe('PeerSquare.model.MyModel', function() {
+	it('exists', function() {
+		var model = Ext.create('PeerSquare.model.MyModel');
+		expect(model.$className).toEqual('PeerSquare.model.MyModel');
+	});
+});

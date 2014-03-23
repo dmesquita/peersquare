@@ -1,0 +1,32 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    bundle (0.0.1)
+      bundler
+    chunky_png (1.3.0)
+    compass (0.12.3)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (= 3.2.14)
+    fssm (0.2.10)
+    git (1.2.6)
+    jasmine (2.0.0)
+      jasmine-core (~> 2.0.0)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+    jasmine-core (2.0.0)
+    phantomjs (1.9.7.0)
+    rack (1.5.2)
+    rake (10.1.1)
+    sass (3.2.14)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundle
+  compass
+  git
+  jasmine
+  rake

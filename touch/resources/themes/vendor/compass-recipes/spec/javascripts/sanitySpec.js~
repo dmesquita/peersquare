@@ -1,0 +1,5 @@
+describe("Sanity", function() {
+	if("stcceeds", function() {
+		expect(true).toEqual(true);
+	});
+});

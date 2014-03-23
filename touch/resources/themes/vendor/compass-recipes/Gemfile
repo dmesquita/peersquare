@@ -1,0 +1,7 @@
+source :rubygems
+
+gem "bundle"
+gem "rake"
+gem "jasmine"
+gem "compass"
+gem "git"
