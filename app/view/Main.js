@@ -4,7 +4,8 @@ Ext.define('PeerSquare.view.Main', {
     requires: [
         'Ext.TitleBar',
 		'PeerSquare.view.AddEventoView',
-		'PeerSquare.view.TimePickerField'
+		'PeerSquare.view.TimePickerField',
+		'Ext.Map'
     ],
     config: {		
 		direction: 'vertical',
@@ -44,7 +45,11 @@ Ext.define('PeerSquare.view.Main', {
 			},
 			{
 				xtype: 'map',
-				html: 'Slide Left Animation'
+				useCurrentLocation: false,
+				mapOptions:{
+					zoom:13,
+					center: new google.maps.LatLng(-8.057445,-34.89139)
+				}
 			},{
 				xtype: 'list',
 				items: [

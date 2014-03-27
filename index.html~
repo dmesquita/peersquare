@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>PeerSquare</title>
-	<script type="text/javascript" src="resources/js/googlemaps.api.js"></script>
-	<script type="text/javascript" src="resources/js/usergrid.0.10.5.js"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script id="usergrid" type="text/javascript" src="/MyApp/usergrid.js"></script>
     <style type="text/css">
          /**
          * Example of an initial loading indicator.

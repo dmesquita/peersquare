@@ -12,6 +12,9 @@
 
 Ext.application({
     name: 'PeerSquare',
+    
+    //Variavel com os marcadores das pracas
+    praca_markers: [],
 
     requires: [
         'Ext.MessageBox',
@@ -53,8 +56,8 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
        
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('PeerSquare.view.Main'));
-    },
+        Ext.Viewport.add(Ext.create('PeerSquare.view.Main'));           
+    },    
 
     onUpdated: function() {
         Ext.Msg.confirm(

@@ -41,8 +41,7 @@ Ext.define('PeerSquare.view.AddEventoView', {
                          {
                              name: 'hora',
                              xtype: 'timepickerfield',
-                             label: 'Hora',
-                             id: 'hora'
+                             label: 'Hora'
                          },
                          {
 							 xtype: 'button',
