@@ -2,22 +2,26 @@ Ext.define('PeerSquare.utils.Functions', {
 	singleton: true,
 	
 	requires: ['Ext.Ajax'],
-	
-	loadData: function() {
 		
+	loadData: function() {
+		Ext.Viewport.setMasked({
+				xtype: 'loadmask',
+				indicator: true,
+				message: 'Logando no apigee...'
+		});									
+	},
+	
+	mostrarEventos: function(parte_da_data, valor){
 		var client = new Usergrid.Client({
 			orgName:'dehmesquita', 
 			appName:'peersquare' 
 		});
-								
-	},
-	
-	mostrarEventos: function(parte_da_data, valor){
+		
 		var options_eventos = {
 			type:'eventos',
-			qs:{ql:parte_da_data + ' = ' + valor}
+			qs:{ql:'select * where ' + parte_da_data + '='+valor}
 		}
-
+		
 		var eventos;
 
 		client.createCollection(options_eventos, function (err, eventos) {
@@ -28,17 +32,17 @@ Ext.define('PeerSquare.utils.Functions', {
 			});			
 			if (err) {
 				alert("Erro ao buscar eventos no banco de dados.");
-			} else {
+			} else {console.log(parte_da_data + ' = ' + valor);
 				while(eventos.hasNextEntity()) {
 					var evento = eventos.getNextEntity();
 					console.log(evento.get('nome_evento'));
 					var id = evento.get('id_praca');  
 					PeerSquare.app.praca_markers[id].setOptions({fillColor:"8E00CB"});                
-				}
-				Ext.Viewport.unmask();                 
+				}				                
 			}
+			Ext.Viewport.unmask(); 
 		 });		
-	}
+	},
 	
 	adicionarEventoApigee: function(evento){
 		var eventos;

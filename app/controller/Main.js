@@ -7,7 +7,7 @@ Ext.define('PeerSquare.controller.Main', {
     ],
     
     id_praca_atual: '',
-    nome_praca_atual = '',
+    nome_praca_atual: '',
     
     config: {
         refs: {
@@ -90,7 +90,8 @@ Ext.define('PeerSquare.controller.Main', {
 					};  
 					
 					/* Neste ponto os marcadores ja estao no mapa, agora muda a cor dos que tem eventos */
-						PeerSquare.utils.Functions.mostrarEventos("mes", new Date().month());
+						//Janeiro eh 0
+						PeerSquare.utils.Functions.mostrarEventos("mes", new Date().getUTCMonth()+1);
 					
 				function mostrarId (praca, id, nome) {
 						google.maps.event.addListener(praca, 'click', function() {
@@ -139,8 +140,7 @@ Ext.define('PeerSquare.controller.Main', {
 				};                          
 			},
 			failure: function() {
-				alert("Erro ao carregar as pracas");
-                //console.log("deu merda");
+				alert("Erro ao carregar as pracas");                
             }
       }); 
       Ext.Viewport.unmask();
@@ -148,13 +148,7 @@ Ext.define('PeerSquare.controller.Main', {
     
     //called when the Application is launched, remove if not needed
     launch: function(app) {
-		this.getMainView().setActiveItem(0);
-		Ext.Viewport.setMasked({
-			xtype: 'loadmask',
-			indicator: true,
-			message: 'Retrieve Settings...'
-		});			
-        PeerSquare.utils.Functions.loadData();
-        Ext.Viewport.unmask();
+		this.getMainView().setActiveItem(0);			
+        PeerSquare.utils.Functions.loadData();        
     }
 });
