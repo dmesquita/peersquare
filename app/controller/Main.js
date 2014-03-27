@@ -65,16 +65,8 @@ Ext.define('PeerSquare.controller.Main', {
 								pracaCoordsGoogleMaps.push(new google.maps.LatLng(coordenadas_praca[i][1], coordenadas_praca[i][0]));
 							};
 							var id = pracas.features[j].id;
-							var nome = pracas.features[j].properties.NMNOME;                                                               
-							/**
-								Vendo se a praca tem eventos
-							**/ 
-							var cor_poligono = '#374140';   
-							/**                                                                
-							if (pracas_com_eventos.indexOf(" "+id+",") != -1){
-								cor_poligono = '#8E00CB';
-							}
-							*/
+							var nome = pracas.features[j].properties.NMNOME;                                                          
+							var cor_poligono = '#374140';  						
 							praca = new google.maps.Polygon({
 								paths: pracaCoordsGoogleMaps,
 								strokeColor: cor_poligono,
@@ -115,7 +107,7 @@ Ext.define('PeerSquare.controller.Main', {
 								store.remove(records);
 								if(! (eventos.hasNextEntity())){
 									//console.log("aiai");
-									store.add([{ evento: "Nenhum evento adicionado a essa praca",   hora: '',  date: ''   }]);
+									store.add([{ evento: "Nenhum evento adicionado a essa pra&ccedil;a",   hora: '',  date: ''   }]);
 								};
 								eventos.resetEntityPointer();
 								//console.log(id);
@@ -140,7 +132,7 @@ Ext.define('PeerSquare.controller.Main', {
 				};                          
 			},
 			failure: function() {
-				alert("Erro ao carregar as pracas");                
+				alert("Erro ao carregar as pra&ccedil;as");                
             }
       }); 
       Ext.Viewport.unmask();
