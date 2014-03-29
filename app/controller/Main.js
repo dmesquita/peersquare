@@ -10,6 +10,7 @@ Ext.define('PeerSquare.controller.Main', {
     nome_praca_atual: '',
     
     config: {
+		stores: 'PeerSquare.store.RuntimeVariables',
         refs: {
 			mainView: 'main',			
 			
@@ -35,14 +36,14 @@ Ext.define('PeerSquare.controller.Main', {
     onOpcoesBtnTap: function() {
 		this.getMainView().animateActiveItem(1, {type: 'slide', direction: 'left'})	
 		this.getBtnOpcoes().hide();
-		this.getBtnBack().show();	
-		console.log(PeerSquare.app.praca_markers[47].setOptions({fillColor:"FFFFFF"}));
+		this.getBtnBack().show();		
 	},
 	
 	onBackBtnTap: function() {
 		this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'})	
 		this.getBtnOpcoes().show();
-		this.getBtnBack().hide();
+		this.getBtnBack().hide();console.log(this.qtdPracas);
+		PeerSquare.utils.Functions.limparCorDosEventos(this.qtdPracas);
 	},
 	
 	//Carregar e mostrar as coordenadas do mapa
@@ -52,11 +53,15 @@ Ext.define('PeerSquare.controller.Main', {
 			indicator: true,
 			message: 'Carregando os marcadores das pra&ccedil;as ...'
 		});		
+		
 		Ext.Ajax.request({
 				url: 'resources/json/parquespracas.geojson',
 										   
 				success: function(response) {
 					var pracas = Ext.decode(response.responseText);
+					var praca_markers = [];
+					var qtdPracas = 0;
+					
 					for(var i in pracas){
 						for (var j in pracas.features){                                                     
 							var pracaCoordsGoogleMaps = [];
@@ -76,16 +81,22 @@ Ext.define('PeerSquare.controller.Main', {
 								fillOpacity: 0.35
 							});
 							mostrarId(praca, id, nome);                       
-							PeerSquare.app.praca_markers[id] = (praca);																
-							praca.setMap(googleMap);    
+							praca_markers[id] = (praca);																
+							praca.setMap(googleMap); 
+							qtdPracas = qtdPracas + 1;   
 						};                                                  
 					};  
+					
+					var store = Ext.getStore('RuntimeVariables');
+					store.removeAll();
+					store.sync();
+					store.add({'qtdPracas': qtdPracas, 'praca_markers': praca_markers});								
 					
 					/* Neste ponto os marcadores ja estao no mapa, agora muda a cor dos que tem eventos */
 						//Janeiro eh 0
 						PeerSquare.utils.Functions.mostrarEventos("mes", new Date().getUTCMonth()+1);
 					
-				function mostrarId (praca, id, nome) {
+					function mostrarId (praca, id, nome) {
 						google.maps.event.addListener(praca, 'click', function() {
 						var options = {
 							type:'eventos',
@@ -135,7 +146,7 @@ Ext.define('PeerSquare.controller.Main', {
 				alert("Erro ao carregar as pra&ccedil;as");                
             }
       }); 
-      Ext.Viewport.unmask();
+      Ext.Viewport.unmask();    
 	},
     
     //called when the Application is launched, remove if not needed

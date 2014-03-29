@@ -12,9 +12,6 @@
 
 Ext.application({
     name: 'PeerSquare',
-    
-    //Variavel com os marcadores das pracas
-    praca_markers: [],
 
     requires: [
         'Ext.MessageBox',
@@ -22,11 +19,11 @@ Ext.application({
     ],
 
     views: [
-        'Main', 'MyView'
+        'Main', 'MyView', 'MenuView'
     ],
     
     stores: [
-		'MyStore'
+		'MyStore', 'RuntimeVariables'
 	],
 	
 	controllers: [

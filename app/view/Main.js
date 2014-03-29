@@ -51,36 +51,12 @@ Ext.define('PeerSquare.view.Main', {
 					center: new google.maps.LatLng(-8.057445,-34.89139)
 				}
 			},{
-				xtype: 'list',
-				items: [
-					{	
-						xtype: 'titlebar',
-						itemTpl: "<h1>{title}</h1>",
-                        cls: 'title',
-                        docked: 'top',
-                        title: "Filtrar por data"                       
-                    },
-                    {
-                        xtype: 'titlebar',
-                        cls: 'title',
-                        docked: 'top',
-                        title: "Filtrar por tag"                       
-                    },
-                    {
-                        xtype: 'titlebar',
-                        cls: 'title',
-                        docked: 'top',
-                        title: "Sobre"                       
-                    }
-                ]  
+				xtype: 'menuview'
 			},
 			{
 				xtype: 'addeventoview'
 			},
-            {
-				itemId: 'mainview',
-				cls: 'textview'               
-            },
+           
             {
 				xtype: 'toolbar',                   
                 cls: 'footer',

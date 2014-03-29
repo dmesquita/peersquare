@@ -3,11 +3,19 @@ Ext.define('PeerSquare.utils.Functions', {
 	
 	requires: ['Ext.Ajax'],
 	
+	config: {stores: 'PeerSquare.store.RuntimeVariables'},
+	
 	loadData: function() {
 										
 	},
 		
 	mostrarEventos: function(parte_da_data, valor){
+		Ext.Viewport.setMasked({
+				xtype: 'loadmask',
+				indicator: true,
+				message: 'Carregando os eventos...'
+		});
+		
 		var client = new Apigee.Client({
 			orgName:'dehmesquita', 
 			appName:'peersquare' 
@@ -20,20 +28,19 @@ Ext.define('PeerSquare.utils.Functions', {
 			
 		var eventos = new Apigee.Collection( { "client":client, "type":"eventos","qs":{ql:'select * where ' + parte_da_data + '='+valor} } );
 		
-		Ext.Viewport.setMasked({
-				xtype: 'loadmask',
-				indicator: true,
-				message: 'Carregando os eventos...'
-		});
+		
 		
 		eventos.fetch(
 			function(){
+				var store = Ext.getStore('RuntimeVariables');
+				var praca_markers = store.getAt(0).get('praca_markers');
+				
 				while ( eventos.hasNextEntity() ) {
 					var evento_atual = eventos.getNextEntity();
 					console.log(evento_atual.get('nome_evento'));
 					var id = evento_atual.get('id_praca');  
-					PeerSquare.app.praca_markers[id].setOptions({fillColor:"8E00CB"});                
-                }			
+					praca_markers[id].setOptions({fillColor:"#8E00CB"});                
+                }		
 			},
 			
 			function(){
@@ -70,5 +77,13 @@ Ext.define('PeerSquare.utils.Functions', {
 	getDateElement: function (tipo, data){
 		//Fazer
 		bronken
-	}	
+	},
+	
+	limparCorDosEventos: function (qtdPracas){
+		for (var id = 0; id < qtdPracas + 1; id++){
+			PeerSquare.app.praca_markers[id].setOptions({fillColor:"#374140"});  
+			console.log("limpando");
+		}
+	}
+		
 });
