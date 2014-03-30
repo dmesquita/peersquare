@@ -89,7 +89,8 @@ Ext.define('PeerSquare.controller.Main', {
 		this.getBtnBack().hide();
 		this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'});		
 		
-		alert("Mostrando eventos do " + parte_da_data + " " + valor_data);	
+		//alert("Mostrando eventos do " + parte_da_data + " " + valor_data);	
+		Ext.Msg.alert('PeerSquare Recife', "Mostrando eventos do " + parte_da_data + " " + valor_data, Ext.emptyFn);
 	},	
 	
 	//Carregar e mostrar as coordenadas do mapa
