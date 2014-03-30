@@ -3,7 +3,7 @@ Ext.define('PeerSquare.utils.Functions', {
 	
 	requires: ['Ext.Ajax'],
 	
-	config: {stores: 'PeerSquare.store.RuntimeVariables'},
+	config: {stores: ['PeerSquare.store.RuntimeVariables', 'PeerSquare.store.Eventos']},
 	
 	loadData: function() {
 										
@@ -32,12 +32,17 @@ Ext.define('PeerSquare.utils.Functions', {
 		
 		eventos.fetch(
 			function(){
-				var store = Ext.getStore('RuntimeVariables');
-				var praca_markers = store.getAt(0).get('praca_markers');
+				var storeVariables = Ext.getStore('RuntimeVariables');
+				var praca_markers = storeVariables.getAt(0).get('praca_markers');
+				var storeEventos = Ext.getStore('Eventos');
+				storeEventos.removeAll();
+				storeEventos.sync();
+				var data = "";
 				
 				while ( eventos.hasNextEntity() ) {
 					var evento_atual = eventos.getNextEntity();
-					console.log(evento_atual.get('nome_evento'));
+					data = evento_atual.get("dia")+"/"+evento_atual.get("mes")+"/"+evento_atual.get("ano");
+					storeEventos.add([{ nome_evento: evento_atual.get('nome_evento'),   hora: evento_atual.get('hora'),  data: data, id_praca: evento_atual.get("id_praca")   }]);
 					var id = evento_atual.get('id_praca');  
 					praca_markers[id].setOptions({fillColor:"#8E00CB"});                
                 }		

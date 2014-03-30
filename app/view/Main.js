@@ -54,6 +54,9 @@ Ext.define('PeerSquare.view.Main', {
 				xtype: 'menuview'
 			},
 			{
+				xtype: 'listaeventosview'
+			},
+			{
 				xtype: 'addeventoview'
 			},
            

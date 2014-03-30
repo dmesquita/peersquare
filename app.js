@@ -19,11 +19,11 @@ Ext.application({
     ],
 
     views: [
-        'Main', 'MyView', 'MenuView'
+        'Main', 'MenuView', 'ListaEventosView'
     ],
     
     stores: [
-		'MyStore', 'RuntimeVariables'
+		'Eventos', 'RuntimeVariables', 'NomeIdPracaAtual'
 	],
 	
 	controllers: [

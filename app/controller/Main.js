@@ -48,7 +48,7 @@ Ext.define('PeerSquare.controller.Main', {
 	},
 	
 	onBackBtnTap: function() {
-		this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'})	
+		this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'});	
 		this.getBtnOpcoes().show();
 		this.getBtnBack().hide();		
 	},
@@ -89,7 +89,6 @@ Ext.define('PeerSquare.controller.Main', {
 		this.getBtnBack().hide();
 		this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'});		
 		
-		//alert("Mostrando eventos do " + parte_da_data + " " + valor_data);	
 		Ext.Msg.alert('PeerSquare Recife', "Mostrando eventos do " + parte_da_data + " " + valor_data, Ext.emptyFn);
 	},	
 	
@@ -99,7 +98,11 @@ Ext.define('PeerSquare.controller.Main', {
 			xtype: 'loadmask',
 			indicator: true,
 			message: 'Carregando os marcadores das pra&ccedil;as ...'
-		});		
+		});	
+			
+		var mainview = this.getMainView();
+		var btnOpcoes = this.getBtnOpcoes();
+		var btnBack = this.getBtnBack();
 		
 		Ext.Ajax.request({
 				url: 'resources/json/parquespracas.geojson',
@@ -143,48 +146,26 @@ Ext.define('PeerSquare.controller.Main', {
 						PeerSquare.utils.Functions.mostrarEventos("mes", new Date().getUTCMonth()+1);
 					
 					function mostrarId (praca, id, nome) {
-						google.maps.event.addListener(praca, 'click', function() {
-						var options = {
-							type:'eventos',
-							qs:{ql:'select * where id_praca = '+id}
-						}
+						google.maps.event.addListener(praca, 'click', function() {						
 						
-						/* Como o usuario clicou no marcador da praca, dizer pro resto do app que tudo que acontecer vai ser com esta praca */
+							/* Como o usuario clicou no marcador da praca, dizer pro resto do app que tudo que acontecer vai ser com esta praca */
 							id_praca_atual = id;
 							nome_praca_atual = nome;
 							
-						var eventos; 
-						Ext.getCmp("titulo_praca").setTitle("<div class='title_praca'>"+nome_praca_global+"</div>");
-						//console.log(nome);
-						client.createCollection(options, function (err, eventos) {
-							if (err) {
-								//console.log("Couldn't get the list of books.");
-							} else {
-								var records = store.getRange();
-								store.remove(records);
-								if(! (eventos.hasNextEntity())){
-									//console.log("aiai");
-									store.add([{ evento: "Nenhum evento adicionado a essa pra&ccedil;a",   hora: '',  date: ''   }]);
-								};
-								eventos.resetEntityPointer();
-								//console.log(id);
-								while(eventos.hasNextEntity()) {
-									var evento = eventos.getNextEntity();
-									//console.log("eita "+evento.get('evento'));
-									//console.log( Sencha.setActiveItem(1));                                                                
-									store.add([{ evento: evento.get('evento'),   hora: evento.get('hora'),  date: evento.get('data')   }]);
-								} 
-								/*
-									Lista eh 1
-									Formulario eh 2
-								*/
-								Ext.getCmp("cont").animateActiveItem(1, {type: 'slide', direction: 'left'});
-								//Ext.getCmp("cont").setActiveItem(3);
-								Ext.getCmp("voltar").show();
-								Ext.getCmp("settings").hide();
-								Ext.getCmp("add").show();  
-							}
-						});
+							Ext.getCmp("titulo_praca").setTitle("<div class='title_praca'>"+nome+"</div>");
+							
+							var storeEventos = Ext.getStore('Eventos');
+							storeEventos.clearFilter();
+							storeEventos.filter('id_praca', id);						
+							
+							Ext.getCmp("lista_eventos").setStore(storeEventos);						
+							
+							mainview.animateActiveItem(2, {type: 'slide', direction: 'left'});	
+							btnOpcoes.hide();
+							btnBack.show();	
+							if( storeEventos.getCount() == 0){
+								Ext.Msg.alert('PeerSquare Recife', "Nenhum evento adicionado a essa pra&ccedil;a", Ext.emptyFn);
+							}					
 					});
 				};                          
 			},
