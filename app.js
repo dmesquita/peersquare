@@ -24,7 +24,7 @@ Ext.application({
     ],
     
     stores: [
-		'Eventos', 'RuntimeVariables', 'NomeIdPracaAtual'
+		'Eventos', 'RuntimeVariables'
 	],
 	
 	controllers: [
