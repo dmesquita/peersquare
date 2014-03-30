@@ -21,6 +21,7 @@ Ext.define('PeerSquare.controller.Main', {
 			btnEventosMes: 'menuview button[action=mostrar-eventos-do-mes]',
 			btnAdd: 'main button[action=add]',
 			btnEnviar: 'addeventoview button[action=enviar]',
+			btnSobre: 'menuview button[action=mostrar-sobre]',
 			
 			myMap: 'map'
             
@@ -46,7 +47,10 @@ Ext.define('PeerSquare.controller.Main', {
 			},
 			'btnEnviar': {
 				tap: 'onEnviarBtnTap'
-			}       
+			},
+			'btnSobre': {
+				tap: 'onSobreBtnTap'
+			}      
         }      
     },
     
@@ -61,6 +65,10 @@ Ext.define('PeerSquare.controller.Main', {
 		this.getBtnOpcoes().show();
 		this.getBtnBack().hide();	
 		this.getBtnAdd().hide();	
+	},
+	
+	onSobreBtnTap: function() {
+		Ext.Msg.alert('Sobre', "PeerSquare Recife v1.5", Ext.emptyFn);
 	},
 	
 	onAddBtnTap: function(){
@@ -179,14 +187,15 @@ Ext.define('PeerSquare.controller.Main', {
 							};
 							var id = pracas.features[j].id;
 							var nome = pracas.features[j].properties.NMNOME;                                                          
-							var cor_poligono = '#374140';  						
+							var cor_poligono = '#374140';  
+							//var cor_poligono = '#8E00CB';						
 							praca = new google.maps.Polygon({
 								paths: pracaCoordsGoogleMaps,
 								strokeColor: cor_poligono,
-								strokeOpacity: 0.8,
+								strokeOpacity: 0.4,
 								strokeWeight: 2,
 								fillColor: cor_poligono,
-								fillOpacity: 0.35
+								fillOpacity: 0.2
 							});
 							mostrarId(praca, id, nome);                       
 							praca_markers[id] = (praca);																

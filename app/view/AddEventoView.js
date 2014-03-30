@@ -34,7 +34,7 @@ Ext.define('PeerSquare.view.AddEventoView', {
 								doneButton: 'Ok',
                                 slotOrder: ['day', 'month', 'year'],
                                 useClearIcon: true,
-                                hideOnMaskTap: true,
+                                hideOnMaskTap: true
 							 },
                              value: new Date()                          
                          },

@@ -743,7 +743,22 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
-  "PeerSquare.view.Main": []
+  "PeerSquare.config.Locale": [],
+  "PeerSquare.controller.Main": [],
+  "PeerSquare.model.Eventos": [],
+  "PeerSquare.model.NomeIdPracaAtual": [],
+  "PeerSquare.model.RuntimeVariables": [],
+  "PeerSquare.store.Eventos": [],
+  "PeerSquare.store.MyStore": [],
+  "PeerSquare.store.NomeIdPracaAtual": [],
+  "PeerSquare.store.RuntimeVariables": [],
+  "PeerSquare.utils.Functions": [],
+  "PeerSquare.view.AddEventoView": [],
+  "PeerSquare.view.ListaEventosView": [],
+  "PeerSquare.view.Main": [],
+  "PeerSquare.view.MapaView": [],
+  "PeerSquare.view.MenuView": [],
+  "PeerSquare.view.TimePickerField": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1687,7 +1702,32 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
+  "PeerSquare.config.Locale": [],
+  "PeerSquare.controller.Main": [],
+  "PeerSquare.model.Eventos": [],
+  "PeerSquare.model.NomeIdPracaAtual": [],
+  "PeerSquare.model.RuntimeVariables": [],
+  "PeerSquare.store.Eventos": [],
+  "PeerSquare.store.MyStore": [],
+  "PeerSquare.store.NomeIdPracaAtual": [],
+  "PeerSquare.store.RuntimeVariables": [],
+  "PeerSquare.utils.Functions": [],
+  "PeerSquare.view.AddEventoView": [
+    "widget.addeventoview"
+  ],
+  "PeerSquare.view.ListaEventosView": [
+    "widget.listaeventosview"
+  ],
   "PeerSquare.view.Main": [
     "widget.main"
+  ],
+  "PeerSquare.view.MapaView": [
+    "widget.map"
+  ],
+  "PeerSquare.view.MenuView": [
+    "widget.menuview"
+  ],
+  "PeerSquare.view.TimePickerField": [
+    "widget.timepickerfield"
   ]
 });

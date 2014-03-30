@@ -21,14 +21,11 @@ Ext.define('PeerSquare.view.MenuView', {
 							ui: 'action',
 							action: 'mostrar-eventos-do-mes',
 							parte_da_data: 'mes'                      
-						},
-						{
-							text: 'Filtrar por tag',
-							ui: 'action'                
-						},
+						},					
 						{
 							text: 'Sobre',
-							ui: 'action'                     
+							ui: 'action',
+							action: 'mostrar-sobre'                     
 						}
 					] 
 				}

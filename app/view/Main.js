@@ -16,7 +16,7 @@ Ext.define('PeerSquare.view.Main', {
 				xtype: 'titlebar',
 				cls: 'title',
 				docked: 'top',
-				title: 'PeerSquare Recife',
+				title: 'PeerSquare Recife  &nbsp;',
 				items: [
 					{
 						cls: 'back',
