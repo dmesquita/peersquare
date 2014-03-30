@@ -13,12 +13,14 @@ Ext.define('PeerSquare.view.MenuView', {
 						{	
 							text: 'Mostrar eventos de hoje',
 							ui: 'action',
-							action: 'mostrar-eventos-de-hoje'                      
+							action: 'mostrar-eventos-de-hoje',
+							parte_da_data: 'dia'                        
 						},
 						{	
-							text: 'Filtrar por data',
+							text: 'Mostrar eventos do m&ecirc;s',
 							ui: 'action',
-							action: 'filtrar-por-data'                      
+							action: 'mostrar-eventos-do-mes',
+							parte_da_data: 'mes'                      
 						},
 						{
 							text: 'Filtrar por tag',

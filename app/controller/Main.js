@@ -17,6 +17,7 @@ Ext.define('PeerSquare.controller.Main', {
 			btnBack: 'main button[action=back]',			
 			btnOpcoes: 'main button[action=opcoes]',
 			btnEventosHoje: 'menuview button[action=mostrar-eventos-de-hoje]',
+			btnEventosMes: 'menuview button[action=mostrar-eventos-do-mes]',
 			
 			myMap: 'map'
             
@@ -32,8 +33,11 @@ Ext.define('PeerSquare.controller.Main', {
 				maprender: 'renderTheMap'
 			},
 			'btnEventosHoje': {
-				tap: 'onEventosHojeBtnTap'
-			}           
+				tap: 'onEventosMesOuDiaBtnTap'
+			},
+			'btnEventosMes': {
+				tap: 'onEventosMesOuDiaBtnTap'
+			}          
         }      
     },
     
@@ -49,7 +53,7 @@ Ext.define('PeerSquare.controller.Main', {
 		this.getBtnBack().hide();		
 	},
 	
-	onEventosHojeBtnTap: function() {
+	onEventosMesOuDiaBtnTap: function(button) {
 		Ext.Viewport.setMasked({
 				xtype: 'loadmask',
 				indicator: true,
@@ -68,8 +72,16 @@ Ext.define('PeerSquare.controller.Main', {
 				message: 'Carregando os eventos...'
 		});
 		
-		var dia = new Date().getDate();
-		PeerSquare.utils.Functions.mostrarEventos("dia", dia);
+		var parte_da_data = button.parte_da_data;
+		var valor_data = '';
+		
+		if (parte_da_data == 'dia'){
+			valor_data = new Date().getDate();
+		} else {
+			valor_data = new Date().getUTCMonth()+1;
+		}
+		
+		PeerSquare.utils.Functions.mostrarEventos(parte_da_data, valor_data);
 		
 		Ext.Viewport.unmask(); 
 		
@@ -77,8 +89,8 @@ Ext.define('PeerSquare.controller.Main', {
 		this.getBtnBack().hide();
 		this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'});		
 		
-		alert("Mostrando eventos de hoje("+dia+")");	
-	},
+		alert("Mostrando eventos do " + parte_da_data + " " + valor_data);	
+	},	
 	
 	//Carregar e mostrar as coordenadas do mapa
 	renderTheMap: function(component, googleMap, eOpts){ 
