@@ -16,6 +16,7 @@ Ext.define('PeerSquare.controller.Main', {
 			
 			btnBack: 'main button[action=back]',			
 			btnOpcoes: 'main button[action=opcoes]',
+			btnEventosHoje: 'menuview button[action=mostrar-eventos-de-hoje]',
 			
 			myMap: 'map'
             
@@ -29,6 +30,9 @@ Ext.define('PeerSquare.controller.Main', {
 			},
 			'map': {
 				maprender: 'renderTheMap'
+			},
+			'btnEventosHoje': {
+				tap: 'onEventosHojeBtnTap'
 			}           
         }      
     },
@@ -42,8 +46,38 @@ Ext.define('PeerSquare.controller.Main', {
 	onBackBtnTap: function() {
 		this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'})	
 		this.getBtnOpcoes().show();
-		this.getBtnBack().hide();console.log(this.qtdPracas);
-		PeerSquare.utils.Functions.limparCorDosEventos(this.qtdPracas);
+		this.getBtnBack().hide();		
+	},
+	
+	onEventosHojeBtnTap: function() {
+		Ext.Viewport.setMasked({
+				xtype: 'loadmask',
+				indicator: true,
+				message: 'Limpando os eventos das outras datas...'
+		});
+		
+		var store = Ext.getStore('RuntimeVariables');
+		var qtdPracas = store.getAt(0).get('qtdPracas');
+		PeerSquare.utils.Functions.limparCorDosEventos(qtdPracas);
+		
+		Ext.Viewport.unmask(); 
+		
+		Ext.Viewport.setMasked({
+				xtype: 'loadmask',
+				indicator: true,
+				message: 'Carregando os eventos...'
+		});
+		
+		var dia = new Date().getDate();
+		PeerSquare.utils.Functions.mostrarEventos("dia", dia);
+		
+		Ext.Viewport.unmask(); 
+		
+		this.getBtnOpcoes().show();
+		this.getBtnBack().hide();
+		this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'});		
+		
+		alert("Mostrando eventos de hoje("+dia+")");	
 	},
 	
 	//Carregar e mostrar as coordenadas do mapa
@@ -59,8 +93,7 @@ Ext.define('PeerSquare.controller.Main', {
 										   
 				success: function(response) {
 					var pracas = Ext.decode(response.responseText);
-					var praca_markers = [];
-					var qtdPracas = 0;
+					var praca_markers = [];				
 					
 					for(var i in pracas){
 						for (var j in pracas.features){                                                     
@@ -83,14 +116,14 @@ Ext.define('PeerSquare.controller.Main', {
 							mostrarId(praca, id, nome);                       
 							praca_markers[id] = (praca);																
 							praca.setMap(googleMap); 
-							qtdPracas = qtdPracas + 1;   
-						};                                                  
+						}; 
+						                                                
 					};  
 					
 					var store = Ext.getStore('RuntimeVariables');
 					store.removeAll();
 					store.sync();
-					store.add({'qtdPracas': qtdPracas, 'praca_markers': praca_markers});								
+					store.add({'qtdPracas': 498, 'praca_markers': praca_markers});								
 					
 					/* Neste ponto os marcadores ja estao no mapa, agora muda a cor dos que tem eventos */
 						//Janeiro eh 0

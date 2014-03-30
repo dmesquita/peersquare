@@ -79,11 +79,13 @@ Ext.define('PeerSquare.utils.Functions', {
 		bronken
 	},
 	
-	limparCorDosEventos: function (qtdPracas){
+	limparCorDosEventos: function (qtdPracas){		
+		var store = Ext.getStore('RuntimeVariables');
+		var praca_markers = store.getAt(0).get('praca_markers');	
+		
 		for (var id = 0; id < qtdPracas + 1; id++){
-			PeerSquare.app.praca_markers[id].setOptions({fillColor:"#374140"});  
-			console.log("limpando");
-		}
+			praca_markers[id].setOptions({fillColor:"#374140"});  			
+		}				
 	}
 		
 });
