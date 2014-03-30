@@ -18,8 +18,11 @@ Ext.define('PeerSquare.controller.Main', {
 			btnOpcoes: 'main button[action=opcoes]',
 			btnEventosHoje: 'menuview button[action=mostrar-eventos-de-hoje]',
 			btnEventosMes: 'menuview button[action=mostrar-eventos-do-mes]',
+			btnAdd: 'main button[action=add]',
 			
-			myMap: 'map'
+			myMap: 'map',
+			
+			fieldNomePraca: 'addeventoview textfield[name=praca]'
             
         },
         control: {
@@ -37,12 +40,15 @@ Ext.define('PeerSquare.controller.Main', {
 			},
 			'btnEventosMes': {
 				tap: 'onEventosMesOuDiaBtnTap'
-			}          
+			},
+			'btnAdd': {
+				tap: 'onAddBtnTap'
+			}        
         }      
     },
     
     onOpcoesBtnTap: function() {
-		this.getMainView().animateActiveItem(1, {type: 'slide', direction: 'left'})	
+		this.getMainView().animateActiveItem(1, {type: 'slide', direction: 'left'});	
 		this.getBtnOpcoes().hide();
 		this.getBtnBack().show();		
 	},
@@ -50,7 +56,14 @@ Ext.define('PeerSquare.controller.Main', {
 	onBackBtnTap: function() {
 		this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'});	
 		this.getBtnOpcoes().show();
-		this.getBtnBack().hide();		
+		this.getBtnBack().hide();	
+		this.getBtnAdd().hide();	
+	},
+	
+	onAddBtnTap: function(){
+		Ext.ComponentQuery.query('textfield[name="nome_praca"]').pop().setValue(nome_praca_atual);
+		this.getMainView().animateActiveItem(3, {type: 'slide', direction: 'left'});
+		this.getBtnAdd().hide();	
 	},
 	
 	onEventosMesOuDiaBtnTap: function(button) {
@@ -103,6 +116,7 @@ Ext.define('PeerSquare.controller.Main', {
 		var mainview = this.getMainView();
 		var btnOpcoes = this.getBtnOpcoes();
 		var btnBack = this.getBtnBack();
+		var btnAdd = this.getBtnAdd();
 		
 		Ext.Ajax.request({
 				url: 'resources/json/parquespracas.geojson',
@@ -156,16 +170,26 @@ Ext.define('PeerSquare.controller.Main', {
 							
 							var storeEventos = Ext.getStore('Eventos');
 							storeEventos.clearFilter();
-							storeEventos.filter('id_praca', id);						
+							storeEventos.filter('id_praca', id);														
 							
-							Ext.getCmp("lista_eventos").setStore(storeEventos);						
+							if( storeEventos.getCount() != 0){						
+								Ext.getCmp("lista_eventos").setStore(storeEventos);
+							}else{								
+								var storeSemEventos = Ext.create('Ext.data.Store', {	
+									storeId: 'storesemeventos',
+									fields: ['nome_evento'],
+									data: [
+										{nome_evento: 'Nenhum evento adicionado a essa pra&ccedil;a'}
+										
+									]	
+								});
+								Ext.getCmp("lista_eventos").setStore(storeSemEventos);		
+							};
 							
 							mainview.animateActiveItem(2, {type: 'slide', direction: 'left'});	
 							btnOpcoes.hide();
 							btnBack.show();	
-							if( storeEventos.getCount() == 0){
-								Ext.Msg.alert('PeerSquare Recife', "Nenhum evento adicionado a essa pra&ccedil;a", Ext.emptyFn);
-							}					
+							btnAdd.show();					
 					});
 				};                          
 			},

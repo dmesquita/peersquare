@@ -15,7 +15,7 @@ Ext.define('PeerSquare.view.AddEventoView', {
                 instructions: 'Preencha os campos acima.',
                 items: [
 						{						 
-							name: 'id_praca',
+							name: 'nome_praca',
                             xtype: 'textfield',
                             label: 'Praça',                            
                             disabled: true                              

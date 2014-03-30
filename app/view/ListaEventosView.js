@@ -13,9 +13,8 @@ Ext.define('PeerSquare.view.ListaEventosView', {
                    cls: 'title',
                    docked: 'top',                       
                    id: 'titulo_praca'
-                },
-                        
-                        ] 
+                }                        
+               ] 
 	}
 	
 	
