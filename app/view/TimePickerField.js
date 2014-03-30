@@ -32,9 +32,9 @@ Ext.define("PeerSquare.view.TimePickerField", {
                                         } else if (hours >= 12) {
                                             meridian = "PM";
 
-                                            if (hours > 12) {
-                                                hours = hours - 12;
-                                            }
+                                            //if (hours > 12) {
+                                            //    hours = hours - 12;
+                                            //}
                                         } else if (hours === 0) {
                                             hours = "12";
                                         }
@@ -43,7 +43,8 @@ Ext.define("PeerSquare.view.TimePickerField", {
                                             minutes = "0" + minutes;
                                         }
 
-                                        return "" + hours + ":" + minutes + " " + meridian;
+                                       // return "" + hours + ":" + minutes + " " + meridian;
+                                       return "" + hours + ":" + minutes;
                                     },
 
                                     sixtyMinusIncrement = 60 - increment,

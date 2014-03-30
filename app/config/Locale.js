@@ -5,7 +5,7 @@ Ext.define('PeerSquare.config.Locale', {
     // date localization borrowed from Ext JS 4 fr locale
  
    if (Ext.Date) {
-    Ext.Date.shortMonthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dec"];
+    Ext.Date.shortMonthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
  
     Ext.Date.getShortMonthName = function(month) {
     return Ext.Date.shortMonthNames[month];
