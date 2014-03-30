@@ -15,7 +15,8 @@ Ext.application({
 
     requires: [
         'Ext.MessageBox',
-        'PeerSquare.utils.Functions'
+        'PeerSquare.utils.Functions',
+        'PeerSquare.config.Locale'
     ],
 
     views: [
@@ -51,6 +52,9 @@ Ext.application({
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
+        
+        //Traduzir os meses
+        PeerSquare.config.Locale.localize('br');
        
         // Initialize the main view
         Ext.Viewport.add(Ext.create('PeerSquare.view.Main'));           

@@ -12,17 +12,17 @@ Ext.define('PeerSquare.controller.Main', {
     config: {
 		stores: 'PeerSquare.store.RuntimeVariables',
         refs: {
-			mainView: 'main',			
+			mainView: 'main',	
+			addEventoView: 'addeventoview',		
 			
 			btnBack: 'main button[action=back]',			
 			btnOpcoes: 'main button[action=opcoes]',
 			btnEventosHoje: 'menuview button[action=mostrar-eventos-de-hoje]',
 			btnEventosMes: 'menuview button[action=mostrar-eventos-do-mes]',
 			btnAdd: 'main button[action=add]',
+			btnEnviar: 'addeventoview button[action=enviar]',
 			
-			myMap: 'map',
-			
-			fieldNomePraca: 'addeventoview textfield[name=praca]'
+			myMap: 'map'
             
         },
         control: {
@@ -64,6 +64,13 @@ Ext.define('PeerSquare.controller.Main', {
 		Ext.ComponentQuery.query('textfield[name="nome_praca"]').pop().setValue(nome_praca_atual);
 		this.getMainView().animateActiveItem(3, {type: 'slide', direction: 'left'});
 		this.getBtnAdd().hide();	
+		var model = Ext.create("PeerSquare.model.Eventos", {});
+        this.getAddEventoView().updateRecord(model);
+        var dia = Ext.ComponentQuery.query('datepickerfield[name="data"]').pop().getValue().getDate();
+        var mes = Ext.ComponentQuery.query('datepickerfield[name="data"]').pop().getValue().getUTCMonth()+1;
+        var ano = Ext.ComponentQuery.query('datepickerfield[name="data"]').pop().getValue().getFullYear();
+        console.log(dia + "/" + mes + "/" + ano);
+        console.log(model);
 	},
 	
 	onEventosMesOuDiaBtnTap: function(button) {

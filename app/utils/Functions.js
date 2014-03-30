@@ -71,9 +71,9 @@ Ext.define('PeerSquare.utils.Functions', {
 		
 		eventos.addEntity(new_evento, function (error, response) {
                     if (error) {
-                        alert("Erro na conexao ao adicionar evento"); 
+                        Ext.Msg.alert('Erro', "Erro na conex&atilde;o ao adicionar novo evento.", Ext.emptyFn);
                     } else {
-                        alert("Evento adicionado com sucesso!");
+                        Ext.Msg.alert('Sucesso!', "Evento adicionado com sucesso!", Ext.emptyFn);
                     }
         });
           
