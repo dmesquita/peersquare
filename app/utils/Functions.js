@@ -57,7 +57,7 @@ Ext.define('PeerSquare.utils.Functions', {
 	},
 	
 	adicionarEventoApigee: function(new_evento){
-		var client = new Apigee.Client({
+		var client2 = new Apigee.Client({
 			orgName:'dehmesquita', 
 			appName:'peersquare' 
 			}, function(err, data){
@@ -66,14 +66,14 @@ Ext.define('PeerSquare.utils.Functions', {
 				}
 			}
 		);
-		
-		var eventos = new Apigee.Collection( { "client":client, "type":"eventos"});
-		
-		eventos.addEntity(new_evento, function (error, response) {
+
+		var eventos2 = new Apigee.Collection( { "client":client2, "type":"eventos"});
+
+		eventos2.addEntity(new_evento, function (error, response) {
                     if (error) {
                         Ext.Msg.alert('Erro', "Erro na conex&atilde;o ao adicionar novo evento.", Ext.emptyFn);
-                    } else {
-                        Ext.Msg.alert('Sucesso!', "Evento adicionado com sucesso!", Ext.emptyFn);
+                    } else {						
+                        Ext.Msg.alert('Sucesso!', "Evento adicionado com sucesso", Ext.emptyFn);
                     }
         });
           

@@ -43,7 +43,10 @@ Ext.define('PeerSquare.controller.Main', {
 			},
 			'btnAdd': {
 				tap: 'onAddBtnTap'
-			}        
+			},
+			'btnEnviar': {
+				tap: 'onEnviarBtnTap'
+			}       
         }      
     },
     
@@ -68,9 +71,44 @@ Ext.define('PeerSquare.controller.Main', {
         this.getAddEventoView().updateRecord(model);
         var dia = Ext.ComponentQuery.query('datepickerfield[name="data"]').pop().getValue().getDate();
         var mes = Ext.ComponentQuery.query('datepickerfield[name="data"]').pop().getValue().getUTCMonth()+1;
+        var ano = Ext.ComponentQuery.query('datepickerfield[name="data"]').pop().getValue().getFullYear();    
+	},
+	
+	onEnviarBtnTap: function(){
+		var model = Ext.create("PeerSquare.model.Eventos", {});
+        this.getAddEventoView().updateRecord(model);
+		var dia = Ext.ComponentQuery.query('datepickerfield[name="data"]').pop().getValue().getDate();
+        var mes = Ext.ComponentQuery.query('datepickerfield[name="data"]').pop().getValue().getUTCMonth()+1;
         var ano = Ext.ComponentQuery.query('datepickerfield[name="data"]').pop().getValue().getFullYear();
-        console.log(dia + "/" + mes + "/" + ano);
-        console.log(model);
+        model.set('id_praca', id_praca_atual);       
+        var errors = model.validate();
+        if (errors.isValid() === false){
+			Ext.Msg.alert('Erro', "O formulário foi preenchido incorretamente.", Ext.emptyFn);
+		}else{
+			Ext.Viewport.setMasked({
+				xtype: 'loadmask',
+				indicator: true,
+				message: 'Adicionando o evento...'
+			});
+			
+			var evento_json = {
+				"id_praca": model.get("id_praca"),
+				"nome_evento": model.get("nome_evento"),
+				"dia": dia,
+				"mes": mes,
+				"ano": ano,
+				"hora": model.get("hora"),
+				"name": model.get("nome_evento")
+			};
+			PeerSquare.utils.Functions.adicionarEventoApigee(evento_json);
+			var store = Ext.getStore('RuntimeVariables');
+			var qtdPracas = store.getAt(0).get('qtdPracas');
+			PeerSquare.utils.Functions.limparCorDosEventos(qtdPracas);
+			PeerSquare.utils.Functions.mostrarEventos("mes", new Date().getUTCMonth()+1);
+			this.getMainView().animateActiveItem(0, {type: 'slide', direction: 'right'});
+			
+			Ext.Viewport.unmask(); 
+		};
 	},
 	
 	onEventosMesOuDiaBtnTap: function(button) {
@@ -201,7 +239,7 @@ Ext.define('PeerSquare.controller.Main', {
 				};                          
 			},
 			failure: function() {
-				alert("Erro ao carregar as pra&ccedil;as");                
+				Ext.Msg.alert('Erro', "Erro ao carregar as pra&ccedil;as.", Ext.emptyFn);			               
             }
       }); 
       Ext.Viewport.unmask();    
