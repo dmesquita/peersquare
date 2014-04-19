@@ -746,17 +746,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "PeerSquare.config.Locale": [],
   "PeerSquare.controller.Main": [],
   "PeerSquare.model.Eventos": [],
-  "PeerSquare.model.NomeIdPracaAtual": [],
   "PeerSquare.model.RuntimeVariables": [],
   "PeerSquare.store.Eventos": [],
-  "PeerSquare.store.MyStore": [],
-  "PeerSquare.store.NomeIdPracaAtual": [],
   "PeerSquare.store.RuntimeVariables": [],
   "PeerSquare.utils.Functions": [],
   "PeerSquare.view.AddEventoView": [],
   "PeerSquare.view.ListaEventosView": [],
   "PeerSquare.view.Main": [],
-  "PeerSquare.view.MapaView": [],
   "PeerSquare.view.MenuView": [],
   "PeerSquare.view.TimePickerField": []
 });
@@ -1705,11 +1701,8 @@ Ext.ClassManager.addNameAliasMappings({
   "PeerSquare.config.Locale": [],
   "PeerSquare.controller.Main": [],
   "PeerSquare.model.Eventos": [],
-  "PeerSquare.model.NomeIdPracaAtual": [],
   "PeerSquare.model.RuntimeVariables": [],
   "PeerSquare.store.Eventos": [],
-  "PeerSquare.store.MyStore": [],
-  "PeerSquare.store.NomeIdPracaAtual": [],
   "PeerSquare.store.RuntimeVariables": [],
   "PeerSquare.utils.Functions": [],
   "PeerSquare.view.AddEventoView": [
@@ -1720,9 +1713,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "PeerSquare.view.Main": [
     "widget.main"
-  ],
-  "PeerSquare.view.MapaView": [
-    "widget.map"
   ],
   "PeerSquare.view.MenuView": [
     "widget.menuview"

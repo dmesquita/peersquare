@@ -16,7 +16,9 @@ Ext.application({
     requires: [
         'Ext.MessageBox',
         'PeerSquare.utils.Functions',
-        'PeerSquare.config.Locale'
+        'PeerSquare.config.Locale',
+        'PeerSquare.view.MenuView',
+        'Ext.Map'
     ],
 
     views: [

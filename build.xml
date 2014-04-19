@@ -5,7 +5,8 @@
     a great idea to read that file to understand how the process works, but it is best to
     limit your changes to this file.
     -->
-    <import file="${basedir}/.sencha/app/build-impl.xml"/>
+    <import file="${basedir}/.sencha/app/phonegap-impl.xml"/>
+<import file="${basedir}/.sencha/app/build-impl.xml"/>
 
     <!--
     The following targets can be provided to inject logic before and/or after key steps
@@ -63,4 +64,21 @@
         <property name="build.options.native.product" value="product:touch"/>
     </target>
     -->
+    
+    <target name="-after-build"/>
+    <target name="build"
+            depends="init,-before-build,-build,-after-build"
+            description="Copy over the font/peersquare folder and remove temp files"/>
+ 
+    <copy todir="${basedir}/resources/css/stylesheets/fonts" overwrite="true">
+      <fileset dir="${basedir}/resources/sass/stylesheets/fonts">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <copy todir="${build.dir}/resources/css/stylesheets/fonts" overwrite="true">
+      <fileset dir="${basedir}/resources/sass/stylesheets/fonts">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <delete dir="${basedir}/${build.dir}"/>
 </project>
