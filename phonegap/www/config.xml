@@ -1,0 +1,18 @@
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+xmlns:gap   = "http://phonegap.com/ns/1.0"
+id          = "com.deborah.peersquare"
+versionCode = "10"
+version     = "1.0.0" >
+ 
+<!-- versionCode is optional and Android only -->
+ 
+<name>PeerSquare Recife</name>
+<description>
+	Veja os eventos que acontecem nas praças da cidade do Recife
+</description>
+<author email="deh.mesquita@hotmail.com" href="http://www.deborahmesquita.com">
+	Déborah Mesquita
+</author>
+<access origin="*" />
+ 
+</widget>
