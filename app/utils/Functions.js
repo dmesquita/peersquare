@@ -44,7 +44,7 @@ Ext.define('PeerSquare.utils.Functions', {
 					data = evento_atual.get("dia")+"/"+evento_atual.get("mes")+"/"+evento_atual.get("ano");
 					storeEventos.add([{ nome_evento: evento_atual.get('nome_evento'),   hora: evento_atual.get('hora'),  data: data, id_praca: evento_atual.get("id_praca")   }]);
 					var id = evento_atual.get('id_praca'); 												
-					praca_markers[id].setOptions({fillColor:"#ba13ff", strokeColor:"#ba13ff", fillOpacity: 0.60});             
+					praca_markers[id].setOptions({fillColor:"#ba13ff", strokeColor:"#ba13ff"});             
                 }		
 			},
 			

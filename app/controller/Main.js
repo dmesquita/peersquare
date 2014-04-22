@@ -195,7 +195,7 @@ Ext.define('PeerSquare.controller.Main', {
 								strokeOpacity: 0.4,
 								strokeWeight: 2,
 								fillColor: cor_poligono,
-								fillOpacity: 0.2
+								fillOpacity: 0.5
 							});
 							mostrarId(praca, id, nome);                       
 							praca_markers[id] = (praca);																
