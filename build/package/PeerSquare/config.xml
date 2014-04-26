@@ -1,0 +1,11 @@
+<widget id="com.deborah.peersquare" version="1.0.0">
+        <name>PeerSquare Recife</name>
+        <description>
+            Veja os eventos que acontecem nas praças da cidade do Recife.
+        </description>
+        <author email="deh.mesquita@hotmail.com" href="http://deborahmesquita.com">
+            Déborah Mesquita
+        </author>
+        <access origin="*" />
+        <preference name="Fullscreen" value="true" />
+    </widget>
